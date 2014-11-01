@@ -10,6 +10,16 @@ regex.match('$23.95') # ==> True
 
 Isn't this better than `regex.compile('\\$\\d\\d(\\.\\d\\d)?')`?
 
+## Installation
+
+Run the following command to install:
+
+    pip install rere
+
+This may require root (`sudo`).
+
+Python 2.7+ and 3.3+ are supported.
+
 ## Usage
 
 To get started using `rere`, you need to know the logic of the regular
