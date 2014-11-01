@@ -23,14 +23,35 @@ class ReReTest(unittest.TestCase):
         self.assertTrue(re.match('$2+$2'))
         self.assertTrue(re.match_prefix('$2+$2+$1'))
     
-    def test_any_character(self):
-        re = AnyCharacter
+    def test_any_char(self):
+        re = AnyChar
         self.assertTrue(re.match('a'))
         self.assertTrue(re.match('1'))
         self.assertTrue(re.match(' '))
         self.assertTrue(re.match('\n'))
         self.assertFalse(re.match(''))
         self.assertFalse(re.match('ab'))
+
+    def test_digit(self):
+        re = Digit
+        self.assertTrue(re.match('1'))
+        self.assertFalse(re.match('11'))
+        self.assertFalse(re.match('1a'))
+        self.assertFalse(re.match('A'))
+
+    def test_letter(self):
+        re = Letter
+        self.assertTrue(re.match('a'))
+        self.assertTrue(re.match('A'))
+        self.assertFalse(re.match('1'))
+        self.assertFalse(re.match('a2'))
+        
+    def test_whitespace(self):
+        re = Whitespace
+        self.assertTrue(re.match(' '))
+        self.assertTrue(re.match('\n'))
+        self.assertFalse(re.match('2'))
+        self.assertFalse(re.match('a 3 '))
 
     def test_anything(self):
         re = Anything

@@ -85,6 +85,9 @@ class Exactly(RegexBase):
     def re_str(self):
         return re.escape(self.string)
 
-AnyCharacter = RawRegex(r'(.|\n)')
+AnyChar = RawRegex(r'(.|\n)')
+Digit = RawRegex(r'\d')
+Letter = RawRegex(r'[A-Za-z]')
+Whitespace = RawRegex(r'\s')
 
-Anything = AnyCharacter.zero_or_more
+Anything = AnyChar.zero_or_more

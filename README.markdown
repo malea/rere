@@ -61,20 +61,67 @@ regex.match('$2.00\n') # ==> True
 (If you had to write a raw regex for the above, it might look something
 like `re.compile('\\$2\\.00\\\n')`. Ew.)
 
-#### `AnyCharacter`
+#### `AnyChar`
 
 ```python
-AnyCharacter
+AnyChar
 ```
 
-Use `AnyCharacter` when you want to match any single character (special or
+Use `AnyChar` when you want to match any single character (special or
 otherwise, including newlines). 
 
 ```python
-regex = Exactly('hello') + AnyCharacter
+regex = Exactly('hello') + AnyChar
 regex.match('hello!') # ==> True
+regex.match('hello1') # ==> True
 regex.match('hello!!') # ==> False
 regex.match('hello\n') # ==> True
+```
+
+#### `Digit`
+
+```python
+Digit
+```
+
+Use `Digit` when you want to match any single digit (from 0 to 9).
+
+```python
+regex = Exactly('hello') + Digit
+regex.match('hello!') # ==> False 
+regex.match('hello1') # ==> True
+regex.match('hello09') # ==> False 
+```
+
+#### `Letter`
+
+```python
+Letter
+```
+
+Use `Letter` when you want to match any English letter (case insensitive). 
+
+```python
+regex = Exactly('hello') + Letter 
+regex.match('helloB') # ==> True 
+regex.match('hellob') # ==> True
+regex.match('hello9') # ==> False 
+regex.match('hello\n') # ==> False
+regex.match('helloBb') # ==> False
+```
+#### `Whitespace`
+
+```python
+Whitespace
+```
+
+Use `Whitespace` when you want to match whitespace (`[ \t\n\r\f\v]`).
+
+```python
+regex = Exactly('hi') + Whitespace
+regex.match('hi ') # ==> True
+regex.match('hi\n') # ==> True
+regex.match('hi b') # ==> False
 ```
 
 #### `Anything`
