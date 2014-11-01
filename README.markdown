@@ -162,7 +162,7 @@ them:
 regex = RawRegex(r"\(\d\d\d\) \d\d\d-\d\d\d\d").one_or_more
 ```
 
-### Properties and Functions
+### Combining Components
 
 All regex components implement several common functions. They can be combined
 and nested in many ways, such as:
@@ -209,4 +209,35 @@ regex.match('ababab') # ==> True
 regex.match('ab') # ==> True
 regex.match('') # ==> False
 regex.match('aba') # ==> False 
+```
+
+#### Addition (`+`)
+
+You can form a regex from separate parts and combine them together with the
+`+` sign.
+
+```python
+regex = Exactly('cat') + Exactly('dog')
+regex.match('catdog') # ==> True
+```
+
+#### Multiplication (`*`)
+
+If you want a part (or a full) regex to be repeated a specified number of times,
+use the `*` sign.
+
+```python
+regex = Exactly('cat') * 2
+regex.match('catcat') # ==> True
+```
+
+#### Or (`|`)
+
+If need "Either or" logic for your regex, use `|`.
+
+```python
+regex = Exactly('cat') | Exactly('dog')
+regex.match('cat') # ==> True
+regex.match('dog') # ==> True
+regex.match('fish') # ==> False
 ```

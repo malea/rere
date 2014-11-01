@@ -99,5 +99,12 @@ class ReReTest(unittest.TestCase):
         self.assertFalse(re.match('catdog'))
         self.assertTrue(re.match('catdogcatdogcatdog'))
 
+    def test_or(self):
+        re = Exactly('cat') | Exactly('dog') | Exactly('snake')
+        self.assertFalse(re.match(''))
+        self.assertTrue(re.match('cat'))
+        self.assertTrue(re.match('dog'))
+        self.assertTrue(re.match('snake'))
+
 if __name__ == '__main__':
     unittest.main()

@@ -21,6 +21,9 @@ class RegexBase(object):
     def __mul__(self, n):
         return MultipartRegex([self] * n)
 
+    def __or__(self, friend):
+        return OrRegex([self, friend])
+
     @property
     def one_or_more(self):
         return OneOrMoreRegex(self)
@@ -60,6 +63,18 @@ class MultipartRegex(RegexBase):
         return MultipartRegex(self.parts * n)
         # preserving my original (but ridiculous) implemtation for posterity:
         # return MultipartRegex(sum((self.parts for _ in range(n)), []))
+
+class OrRegex(RegexBase):
+
+    def __init__(self, parts):
+        self.parts = parts
+
+    def re_str(self):
+        """Generate regex as a string"""
+        return '({})'.format('|'.join(part.re_str() for part in self.parts))
+
+    def __or__(self, friend):
+        return OrRegex(self.parts + [friend])
 
 class OneOrMoreRegex(RegexBase):
 
