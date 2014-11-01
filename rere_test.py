@@ -34,21 +34,21 @@ class ReReTest(unittest.TestCase):
         self.assertTrue(re.match('123a\na\n'))
 
     def test_one_or_more(self):
-        re = Exactly('puppy').one_or_more()
+        re = Exactly('puppy').one_or_more
         self.assertFalse(re.match(''))
         self.assertFalse(re.match('kitten'))
         self.assertTrue(re.match('puppy'))
         self.assertTrue(re.match('puppypuppy'))
 
     def test_zero_or_more(self):
-        re = Exactly('puppy').zero_or_more()
+        re = Exactly('puppy').zero_or_more
         self.assertTrue(re.match(''))
         self.assertFalse(re.match('kitten'))
         self.assertTrue(re.match('puppy'))
         self.assertTrue(re.match('puppypuppy'))
 
     def test_zero_or_one(self):
-        re = Exactly('puppy').zero_or_one()
+        re = Exactly('puppy').zero_or_one
         self.assertTrue(re.match(''))
         self.assertFalse(re.match('kitten'))
         self.assertTrue(re.match('puppy'))

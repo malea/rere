@@ -18,12 +18,15 @@ class RegexBase(object):
     def __add__(self, friend):
         return MultipartRegex([self, friend])
 
+    @property
     def one_or_more(self):
         return OneOrMoreRegex(self)
 
+    @property
     def zero_or_more(self):
         return ZeroOrMoreRegex(self)
 
+    @property
     def zero_or_one(self):
         return ZeroOrOneRegex(self)
 
