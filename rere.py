@@ -18,6 +18,9 @@ class RegexBase(object):
     def __add__(self, friend):
         return MultipartRegex([self, friend])
 
+    def __mul__(self, n):
+        return MultipartRegex([self] * n)
+
     @property
     def one_or_more(self):
         return OneOrMoreRegex(self)
@@ -52,6 +55,11 @@ class MultipartRegex(RegexBase):
 
     def __add__(self, friend):
         return MultipartRegex(self.parts + [friend])
+
+    def __mul__(self, n):
+        return MultipartRegex(self.parts * n)
+        # preserving my original (but ridiculous) implemtation for posterity:
+        # return MultipartRegex(sum((self.parts for _ in range(n)), []))
 
 class OneOrMoreRegex(RegexBase):
 

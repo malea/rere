@@ -87,5 +87,17 @@ class ReReTest(unittest.TestCase):
         self.assertTrue(re.match('puppy'))
         self.assertFalse(re.match('puppypuppy'))
 
+    def test_multiply_single(self):
+        re = Exactly('cat') * 3
+        self.assertFalse(re.match(''))
+        self.assertFalse(re.match('cat'))
+        self.assertTrue(re.match('catcatcat'))
+
+    def test_multiply_multipart(self):
+        re = (Exactly('cat') + Exactly('dog')) * 3
+        self.assertFalse(re.match(''))
+        self.assertFalse(re.match('catdog'))
+        self.assertTrue(re.match('catdogcatdogcatdog'))
+
 if __name__ == '__main__':
     unittest.main()

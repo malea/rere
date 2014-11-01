@@ -1,14 +1,16 @@
 # `rere`: regex redone
 
-## Usage
-
 ```python
 from rere import *
 
-regex = Exactly('$23.') + Anything + Exactly('\n')
+money_regex = Exactly('$') + Digit*2 + (Exactly('.') + Digit*2).zero_or_one
 
-regex.match('$23.bl@h\n') # ==> True
+regex.match('$23.95') # ==> True
 ```
+
+Isn't this better than `regex.compile('\\$\\d\\d(\\.\\d\\d)?')`?
+
+## Usage
 
 To get started using `rere`, you need to know the logic of the regular
 expression pattern that you wish to build. To learn more about regular
