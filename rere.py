@@ -30,6 +30,15 @@ class RegexBase(object):
     def zero_or_one(self):
         return ZeroOrOneRegex(self)
 
+class RawRegex(RegexBase):
+    """Match a user specified raw regex"""
+
+    def __init__(self, pattern):
+        self.pattern = pattern
+
+    def re_str(self):
+        return self.pattern
+
 class MultipartRegex(RegexBase):
     """Container of RegexParts"""
 
@@ -76,12 +85,6 @@ class Exactly(RegexBase):
     def re_str(self):
         return re.escape(self.string)
 
-class AnyCharacter(RegexBase):
+AnyCharacter = RawRegex(r'(.|\n)')
 
-    def re_str(self):
-        return r'(.|\n)'
-
-class Anything(RegexBase):
-
-    def re_str(self):
-        return r'(.|\n)*'
+Anything = AnyCharacter.zero_or_more
