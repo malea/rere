@@ -17,7 +17,7 @@ from setuptools import setup
 setup(
     name='rere',
     version='0.1.0',
-    url='https://github.com/malea/rere',
+    url='http://www.maleagrubb.com/rere',
     license='Apache 2',
     author='Malea Grubb',
     author_email='maleangrubb@gmail.com',
