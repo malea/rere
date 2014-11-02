@@ -37,10 +37,10 @@
 
 <span class="n">money_regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'$'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Digit</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">Exactly</span><span class="p">(</span><span class="s">'.'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Digit</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">zero_or_one</span>
 
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'$23.95'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
+<span class="n">money_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'$23.95'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
 </pre></div>
 
-<p>Isn't this better than <code>regex.compile('\\$\\d\\d(\\.\\d\\d)?')</code>?</p>
+<p>Isn't this better than <code>re.compile('\\$\\d\\d(\\.\\d\\d)?')</code>?</p>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
