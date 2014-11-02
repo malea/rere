@@ -8,7 +8,7 @@ money_regex = Exactly('$') + Digit*2 + (Exactly('.') + Digit*2).zero_or_one
 money_regex.match('$23.95') # ==> True
 ```
 
-Isn't this better than `regex.compile('\\$\\d\\d(\\.\\d\\d)?')`?
+Isn't this better than `re.compile('\\$\\d\\d(\\.\\d\\d)?')`?
 
 ## Installation
 
