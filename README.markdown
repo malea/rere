@@ -31,7 +31,7 @@ Once you know what sort of pattern you wish to match strings against, you can
 use `rere` to automatically generate the string patterns that you wish to use.
 Additionally, there is functionality built in to `rere` to call Python's
 built-in `re` library to do the matching for you (`match()` or
-`match\_prefix`).
+`match_prefix`).
 
 See above for the example.
 
