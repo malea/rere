@@ -31,13 +31,14 @@
       </header>
       <section>
         <h1>
-<a name="rere-regex-redone" class="anchor" href="#rere-regex-redone"><span class="octicon octicon-link"></span></a>rere: regex redone</h1>
+<a name="rere-regex-redone" class="anchor" href="#rere-regex-redone"><span class="octicon octicon-link"></span></a>
+<code>rere</code>: regex redone</h1>
 
 <div class="highlight highlight-python"><pre><span class="kn">from</span> <span class="nn">rere</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">money_regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'$'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Digit</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">Exactly</span><span class="p">(</span><span class="s">'.'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Digit</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">zero_or_one</span>
 
-<span class="n">money_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'$23.95'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
+<span class="n">money_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'$23.95'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
 </pre></div>
 
 <p>Isn't this better than <code>re.compile('\\$\\d\\d(\\.\\d\\d)?')</code>?</p>
@@ -66,7 +67,7 @@ Expression</a>.</p>
 use <code>rere</code> to automatically generate the string patterns that you wish to use.
 Additionally, there is functionality built in to <code>rere</code> to call Python's
 built-in <code>re</code> library to do the matching for you (<code>match()</code> or
-<code>match\_prefix</code>).</p>
+<code>match_prefix</code>).</p>
 
 <p>See above for the example.</p>
 
@@ -96,16 +97,16 @@ string of your choosing.</p>
 <p>For example, if you want to match for the exact string, 'cat',</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'cat'</span><span class="p">)</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'cat'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'Cat'</span><span class="p">)</span> <span class="c"># ==&gt; False</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">prefix_match</span><span class="p">(</span><span class="s">'catapult'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">prefix_match</span><span class="p">(</span><span class="s">'bobcat'</span><span class="p">)</span> <span class="c"># ==&gt; False</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'cat'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'Cat'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">prefix_match</span><span class="p">(</span><span class="s">'catapult'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">prefix_match</span><span class="p">(</span><span class="s">'bobcat'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
 </pre></div>
 
-<p><code>Exactly</code> takes care of any required escaping, so you can do things like: </p>
+<p><code>Exactly</code> takes care of any required escaping, so you can do things like:</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'$2.00</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'$2.00</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'$2.00</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
 </pre></div>
 
 <p>(If you had to write a raw regex for the above, it might look something
@@ -119,13 +120,13 @@ like <code>re.compile('\\$2\\.00\\\n')</code>. Ew.)</p>
 </pre></div>
 
 <p>Use <code>AnyChar</code> when you want to match any single character (special or
-otherwise, including newlines). </p>
+otherwise, including newlines).</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span> <span class="o">+</span> <span class="n">AnyChar</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello!'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello1'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello!!'</span><span class="p">)</span> <span class="c"># ==&gt; False</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello!'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello1'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello!!'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
 </pre></div>
 
 <h4>
@@ -138,9 +139,9 @@ otherwise, including newlines). </p>
 <p>Use <code>Digit</code> when you want to match any single digit (from 0 to 9).</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Digit</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello!'</span><span class="p">)</span> <span class="c"># ==&gt; False </span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello1'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello09'</span><span class="p">)</span> <span class="c"># ==&gt; False </span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello!'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello1'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello09'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
 </pre></div>
 
 <h4>
@@ -150,14 +151,14 @@ otherwise, including newlines). </p>
 <div class="highlight highlight-python"><pre><span class="n">Letter</span>
 </pre></div>
 
-<p>Use <code>Letter</code> when you want to match any English letter (case insensitive). </p>
+<p>Use <code>Letter</code> when you want to match any English letter (case insensitive).</p>
 
-<div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Letter</span> 
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'helloB'</span><span class="p">)</span> <span class="c"># ==&gt; True </span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hellob'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello9'</span><span class="p">)</span> <span class="c"># ==&gt; False </span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="c"># ==&gt; False</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'helloBb'</span><span class="p">)</span> <span class="c"># ==&gt; False</span>
+<div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Letter</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'helloB'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hellob'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello9'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'helloBb'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
 </pre></div>
 
 <h4>
@@ -170,9 +171,9 @@ otherwise, including newlines). </p>
 <p>Use <code>Whitespace</code> when you want to match whitespace (<code>[ \t\n\r\f\v]</code>).</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'hi'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Whitespace</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hi '</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hi</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hi b'</span><span class="p">)</span> <span class="c"># ==&gt; False</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hi '</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hi</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hi b'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
 </pre></div>
 
 <h4>
@@ -186,10 +187,10 @@ otherwise, including newlines). </p>
 otherwise, including newlines). The empty string will also be matched.</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Anything</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello!'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello!!'</span><span class="p">)</span> <span class="c"># ==&gt; True </span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'Hellohello'</span><span class="p">)</span> <span class="c">#==&gt; False</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello!'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello!!'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'hello</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'Hellohello'</span><span class="p">)</span> <span class="c">#==&gt; None</span>
 </pre></div>
 
 <h4>
@@ -220,8 +221,8 @@ them:</p>
 and nested in many ways, such as:</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="p">(</span><span class="n">Exactly</span><span class="p">(</span><span class="s">'cat'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'dog'</span><span class="p">)</span><span class="o">.</span><span class="n">zero_or_one</span><span class="p">)</span><span class="o">.</span><span class="n">one_or_more</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'catcatdogcatdogcatdog'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'catdogdog'</span><span class="p">)</span> <span class="c"># ==&gt; False</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'catcatdogcatdogcatdog'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'catdogdog'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
 </pre></div>
 
 <h4>
@@ -232,9 +233,9 @@ and nested in many ways, such as:</p>
 required to match the pattern, in this case, only zero or one.</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span><span class="o">.</span><span class="n">zero_or_one</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'aba'</span><span class="p">)</span> <span class="c"># ==&gt; False</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">''</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'aba'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">''</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
 </pre></div>
 
 <h4>
@@ -244,11 +245,11 @@ required to match the pattern, in this case, only zero or one.</p>
 <p>Use the <code>zero_or_more</code> property to describe how many repetitions of a string are
 required to match the pattern, in this case, any number (zero or more).</p>
 
-<div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span><span class="o">.</span><span class="n">zero_or_more</span> 
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'ababab'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">''</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'aba'</span><span class="p">)</span> <span class="c"># ==&gt; False </span>
+<div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span><span class="o">.</span><span class="n">zero_or_more</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'ababab'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">''</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'aba'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
 </pre></div>
 
 <h4>
@@ -258,11 +259,34 @@ required to match the pattern, in this case, any number (zero or more).</p>
 <p>Use the <code>one_or_more</code> function to describe how many repetitions of a string are
 required to match the pattern, in this case, at least one.</p>
 
-<div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span><span class="o">.</span><span class="n">one_or_more</span> 
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'ababab'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">''</span><span class="p">)</span> <span class="c"># ==&gt; False</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'aba'</span><span class="p">)</span> <span class="c"># ==&gt; False </span>
+<div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span><span class="o">.</span><span class="n">one_or_more</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'ababab'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'ab'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">''</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'aba'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
+</pre></div>
+
+<h4>
+<a name="regexas_group" class="anchor" href="#regexas_group"><span class="octicon octicon-link"></span></a><code>regex.as_group</code>
+</h4>
+
+<div class="highlight highlight-python"><pre><span class="n">regex</span><span class="o">.</span><span class="n">as_group</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+
+<ul>
+<li>  <code>name</code>: the name of your group</li>
+</ul>
+
+<p>You can assign a your regex part to a group. This allows those who want to
+use re's group functionality an easy way of working with it.</p>
+
+<p>For example, say you want to group dollars and cents separately for a money
+regex.</p>
+
+<div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="p">(</span><span class="n">Exactly</span><span class="p">(</span><span class="s">'$'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Digit</span><span class="o">.</span><span class="n">one_or_more</span><span class="o">.</span><span class="n">as_group</span><span class="p">(</span><span class="s">'dollars'</span><span class="p">)</span> <span class="o">+</span>
+         <span class="n">Exactly</span><span class="p">(</span><span class="s">'.'</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">Digit</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">as_group</span><span class="p">(</span><span class="s">'cents'</span><span class="p">))</span>
+<span class="n">match</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'$24.13'</span><span class="p">)</span>
+<span class="n">match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span> <span class="c"># ==&gt; {'dollars': '24', 'cents': '13'}</span>
 </pre></div>
 
 <h4>
@@ -272,7 +296,7 @@ required to match the pattern, in this case, at least one.</p>
 <code>+</code> sign.</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'cat'</span><span class="p">)</span> <span class="o">+</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'dog'</span><span class="p">)</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'catdog'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'catdog'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
 </pre></div>
 
 <h4>
@@ -282,7 +306,7 @@ required to match the pattern, in this case, at least one.</p>
 use the <code>*</code> sign.</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'cat'</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'catcat'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'catcat'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
 </pre></div>
 
 <h4>
@@ -291,9 +315,9 @@ use the <code>*</code> sign.</p>
 <p>If need "Either or" logic for your regex, use <code>|</code>.</p>
 
 <div class="highlight highlight-python"><pre><span class="n">regex</span> <span class="o">=</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'cat'</span><span class="p">)</span> <span class="o">|</span> <span class="n">Exactly</span><span class="p">(</span><span class="s">'dog'</span><span class="p">)</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'cat'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'dog'</span><span class="p">)</span> <span class="c"># ==&gt; True</span>
-<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'fish'</span><span class="p">)</span> <span class="c"># ==&gt; False</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'cat'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'dog'</span><span class="p">)</span> <span class="c"># ==&gt; MatchObject(...)</span>
+<span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'fish'</span><span class="p">)</span> <span class="c"># ==&gt; None</span>
 </pre></div>
       </section>
       <footer>
