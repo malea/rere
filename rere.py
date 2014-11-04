@@ -68,6 +68,20 @@ class RegexBase(object):
         """
         return OrRegex([self, friend])
 
+    def as_group(self, name):
+        """Define a regex part as a group
+
+        This function calls the Group() class.
+
+        For example: r = letter.one_or_more.as_group('firstname')
+                     r2 = letter.one_or_more.as_group('lastname')
+                     new_r = r + r2
+        m = new_r.match("Malea Grubb")
+        m.group('firstname') # ==> "Malea"
+        m.group('lastname') # ==> "Grubb"
+        """
+        return Group(self, name)
+
     @property
     def one_or_more(self):
         """Use to specify chain length requirement (one or more)
@@ -211,6 +225,19 @@ class Exactly(RegexBase):
 
     def re_str(self):
         return re.escape(self.string)
+
+class Group(RegexBase):
+    """Specify a group name for a regex part
+
+    This is returned by the as_group function.
+
+    """
+    def __init__(self, part, name):
+        self.part = part
+        self.name = name
+
+    def re_str(self):
+        return '(?P<{}>{})'.format(self.name, self.part.re_str())
 
 # Module-level constants should be ALL_CAPS, but that might make the API more
 # confusing for users (at least it would for me, so this is the assumption I'm

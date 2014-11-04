@@ -106,5 +106,14 @@ class ReReTest(unittest.TestCase):
         self.assertTrue(re.match('dog'))
         self.assertTrue(re.match('snake'))
 
+    def test_group(self):
+        re = (Letter.one_or_more.as_group('first_name') +
+              Whitespace.one_or_more +
+              Letter.one_or_more.as_group('last_name'))
+        match = re.match('Malea Grubb')
+        self.assertTrue(match)
+        self.assertEqual(match.group('first_name'), 'Malea')
+        self.assertEqual(match.group('last_name'), 'Grubb')
+
 if __name__ == '__main__':
     unittest.main()
