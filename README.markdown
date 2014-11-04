@@ -221,6 +221,27 @@ regex.match('') # ==> False
 regex.match('aba') # ==> False 
 ```
 
+#### `regex.as_group`
+
+```python
+regex.as_group(name)
+```
+
+-   `name`: the name of your group
+
+You can assign a your regex part to a group. This allows those who want to
+use re's group functionality an easy way of working with it.
+
+For example, say you want to group dollars and cents separately for a money
+regex.
+
+```python
+regex = (Exactly('$') + Digit.one_or_more.as_group('dollars') +
+         Exactly('.') + (Digit * 2).as_group('cents'))
+match = regex.match('$24.13')
+match.groupdict() # ==> {'dollars': '24', 'cents': '13'}
+```
+
 #### Addition (`+`)
 
 You can form a regex from separate parts and combine them together with the
